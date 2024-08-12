@@ -7,7 +7,7 @@ class CameraApp:
     def __init__(self, window):
         self.window = window
         self.window.title("Camera Interface")
-        
+
         # Create a label to display the video feed
         self.video_label = tk.Label(window)
         self.video_label.pack()
@@ -23,6 +23,15 @@ class CameraApp:
     def update_frame(self):
         ret, frame = self.cap.read()
         if ret:
+            # Add text to the frame
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            text = "Look at the camera for 5 seconds and hold still"
+            position = (210, 30) 
+            font_scale = 1
+            color = (0, 0, 0) 
+            thickness = 2
+            cv2.putText(frame, text, position, font, font_scale, color, thickness, cv2.LINE_AA)
+
             # Convert the image to RGB format
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(rgb_frame)
